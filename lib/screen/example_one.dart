@@ -22,7 +22,7 @@ class _ExampleOneState extends State<ExampleOne> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Consumer<ExampleOneProvider>(
-              builder: (builder, valueP, child) {
+              builder: (context, valueP, child) {
                 return Slider(
                   min: 0,
                   max: 1,
