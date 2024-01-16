@@ -1,4 +1,6 @@
 import 'package:count_provider/provider/favorite_provider.dart';
+import 'package:count_provider/provider/theme_changer_provider.dart';
+import 'package:count_provider/screen/dark_theme.dart';
 import 'package:count_provider/screen/example_one.dart';
 import 'package:count_provider/screen/favorite_screen.dart';
 import 'package:count_provider/screen/home_screen.dart';
@@ -41,10 +43,28 @@ class MyApp extends StatelessWidget {
           create: (_) => ExampleOneProvider(),
         ),
         ChangeNotifierProvider(create: (_) => FavoriteProvider()),
+        ChangeNotifierProvider(create: (_) => ThemeChanger()),
       ],
-      child: MaterialApp(
-        // home: ExampleOne(),
-        home: FavoriteScreen(),
+      child: Builder(
+        builder: (BuildContext context) {
+          final themeChanger = Provider.of<ThemeChanger>(context);
+          return MaterialApp(
+            // home: ExampleOne(),
+            // home: FavoriteScreen(),
+            themeMode: themeChanger.themeMode,
+            theme: ThemeData(
+              brightness: Brightness.light,
+              primaryColor: Colors.amber,
+            ),
+            darkTheme: ThemeData(
+                brightness: Brightness.dark,
+                primaryColor: Colors.teal,
+                appBarTheme: AppBarTheme(
+                  backgroundColor: Colors.red,
+                )),
+            home: DarkThemeScreen(),
+          );
+        },
       ),
     );
   }
